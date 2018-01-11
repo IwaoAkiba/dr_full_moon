@@ -18,7 +18,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   function listeningGuchi(app){
       var any = app.getArgument(ANY_ARGUMENT);
       if(any){
-        app.data.fallbackCount = 0;  
         if(any == "寝不足"){
             app.ask("ありゃやあ、寝不足なんですね。");
         }
