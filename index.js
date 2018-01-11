@@ -15,7 +15,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
   
-  function listiningGuchi(app){
+  function listeningGuchi(app){
       var any = app.getArgument(ANY_ARGUMENT);
       if(any){
         app.data.fallbackCount = 0;  
@@ -26,33 +26,15 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             app.ask("あらま、上司が。色々大変ですね");
         }
         else{
-            app.ask("あらま、色々大変ですね");
+            app.ask("あらまあ、色々大変ですね");
         }
       }
       else{
-          fallback(app);
+          app.ask("あらま、色々大変ですね");
       }
-  }
-  function fallback(app){
-    console.log(app.data.fallbackCount);
-    if (typeof app.data.fallbackCount !== 'number') {
-      app.data.fallbackCount = 0;
-    }
-    app.data.fallbackCount++;
-    // Provide two prompts before ending game
-    if (app.data.fallbackCount === 1) {
-      //app.setContext(Contexts.DONE_YES_NO);
-      return app.ask("いまなんていいましたか？");
-    }
-    else if(app.data.fallbackCount === 2){
-        return app.ask("失礼しました、わかりにくかったです。「寝不足」や「上司がつらい」等といってください");
-    }
-    else{
-        return app.tell("すみません。勉強不足で役にたてそうにありません。");
-    }
   }
   
   let actionMap = new Map();
-  actionMap.set(GUCHI,listiningGuchi);
+  actionMap.set(GUCHI,listeningGuchi);
   app.handleRequest(actionMap);
 });
